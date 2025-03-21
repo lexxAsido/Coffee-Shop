@@ -6,9 +6,10 @@ import { Sora_400Regular, Sora_700Bold } from '@expo-google-fonts/sora';
 import { useEffect } from 'react';
 import * as SplashScreen from "expo-splash-screen";
 import LogIn from './Framework/Screen/LogIn';
-import HomeScreen from './Framework/Screen/HomeScreen';
+// import {HomeScreen} from './Framework/Screen/HomeScreen';
 import { StackNavigation } from './Framework/Navigation/Stack';
 import "./global.css"
+import Details from './Framework/Screen/Details';
 
 
 
@@ -35,8 +36,8 @@ export default function App() {
     <View style={styles.container}>
      {/* <View className='flex-1 justify-center items-center bg-black'> */}
       <StatusBar style="auto" />
-      {/* <StackNavigation/> */}
-      <HomeScreen/>
+      <StackNavigation/>
+      {/* <Details/> */}
     </View>
   );
 }

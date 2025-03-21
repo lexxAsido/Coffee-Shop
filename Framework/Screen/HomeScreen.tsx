@@ -6,10 +6,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleDown, faArrowDown, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Animatable from "react-native-animatable";
 
+import { RootStackParamList } from '../Navigation/Stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackScreenProps } from '@react-navigation/stack';
+import Favorite from './Favorite';
+import Bag from './Bag';
+import Updates from './Updates';
 
+interface HomeProps {
+    navigation: {
+      navigate: (route: string) => void;
+      replace: (route: string) => void;
+    };
+  }
 
-export default function HomeScreen (){
-    const [searchQuery, setSearchQuery] = React.useState('');
+function Home({ navigation }: HomeProps) {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const coffeeList = [
+        { name: "Caffe Mocha", image: require("../../assets/coffeeA.png"), description: "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85ml of fresh milk the fo..",label:"Ice/Hot", title:"Deep Foam", price: "4.53", rating: "4.8" },
+        { name: "Flat White", image: require("../../assets/coffee2.png"), description: "Espresso is a classy coffee made from the finest",label:"Espresso", title:"Deep Foam", price: "3.53", rating: "4.8" },
+        { name: "Your Maker", image: require("../../assets/coffee3.png"), description: "ultimat",label:"Ice/Hot", title:"Deep Foam", price: "3.53", rating: "4.8" },
+        { name: "Relizo", image: require("../../assets/coffee4.png"), description: "Chillz",label:"Ice/Hot", title:"Deep Foam", price: "3.53", rating: "4.8" },
+        { name: "Heaven", image: require("../../assets/coffee5.png"), description: "Purity",label:"Ice/Hot", title:"Deep Foam", price: "6.53", rating: "4.8" },
+    ];
 
     
       
@@ -57,15 +77,15 @@ export default function HomeScreen (){
                     </View>
                         
 
-                    <ImageBackground source={require("../../assets/banner.png")} style={{width:"100%", height:170, marginTop:16}}>
-    <View className='mt-10'>
+<ImageBackground source={require("../../assets/banner.png")} style={{width:"100%", height:170, marginTop:16}}>
+    <View className='mt-12'>
         <Animatable.View 
             animation="pulse"
             duration={2000} 
             iterationCount="infinite"
             // className='absolute top-4 left-7'
         >
-            <Text className='bg-[#ED5151] font-soraBold text-white px-3 rounded-md py-1 w-[5rem] ml-11'>Promo</Text>
+            <Text className='bg-[#ED5151] font-soraBold text-white  ml-11' style={{width:60, paddingHorizontal:5}}>Promo</Text>
         </Animatable.View>
 
         <View className='ml-11'>
@@ -103,7 +123,7 @@ export default function HomeScreen (){
         </LinearGradient>
 
 
-            <View className='mt-32 mx-8 flex gap-10 justify-around ' style={{flexDirection:"row"}}>
+            <View className=' mt-40 flex gap-10 justify-around items-center' style={{flexDirection:"row",}}>
                 <TouchableOpacity className='bg-[#C67C4E] py-1 px-2 rounded-lg'>
                 <Text className='text-white font-sora '>All Coffee</Text>
                 </TouchableOpacity>
@@ -122,123 +142,67 @@ export default function HomeScreen (){
                 
             </View>
 
-        <ScrollView>
-    <View className="p-4 flex-row justify-center gap-5 flex-wrap mb-20">
-      
+        <ScrollView style={{marginTop:10}}>
     
-        <View className='relative'
-            style={{
-                backgroundColor: "white", 
-                borderRadius: 12, 
-                padding: 8, 
-                //   alignItems: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.2,
-                shadowRadius: 4,
-                elevation: 5, 
-                width: 200,
-                
-            }}>
-            <Image 
-            source={require("../../assets/coffeeA.png")} 
-            style={{ width: "100%", height: 180, borderRadius: 8 }} 
-            />
-            <Text className="mt-3 font-bold text-lg">Caffe Mocha</Text>
-            <Text className="text-[#A2A2A2] text-sm">Deep Foam</Text>
-            <TouchableOpacity className='flex-row items-center justify-between'>
-            <Text className="font-soraBold text-lg ">$4.53</Text>
-            <MaterialIcons name="add-box" size={26} color="#C67C4E" />
-            </TouchableOpacity>
-            <Text className='absolute top-4 right-5 text-white'>⭐ 4.8</Text>
-        </View>
 
-      
-        <View 
-            style={{
-                backgroundColor: "white", 
-                borderRadius: 8, 
-                padding: 12, 
-                //   alignItems: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.2,
-                shadowRadius: 4,
-                elevation: 5, 
-                width: 200,
-            }}>
-            <Image 
-            source={require("../../assets/coffee2.png")} 
-            style={{ width: "100%", height: 180, borderRadius: 8 }} 
-            />
-            <Text className="mt-3 font-bold text-lg">Flat White</Text>
-            <Text className="text-[#A2A2A2] text-sm">Espresso</Text>
-
-            <TouchableOpacity className='flex-row items-center justify-between'>
-            <Text className="font-soraBold text-lg ">$3.53</Text>
-            <MaterialIcons name="add-box" size={26} color="#C67C4E" />
-            </TouchableOpacity>
-            <Text className='absolute top-4 right-5 text-white'>⭐ 4.8</Text>
-        </View>
-
-        <View 
-            style={{
-                backgroundColor: "white", 
-                borderRadius: 8, 
-                padding: 12, 
-                //   alignItems: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.2,
-                shadowRadius: 4,
-                elevation: 5, 
-                width: 200,
-            }}>
-            <Image 
-            source={require("../../assets/coffee3.png")} 
-            style={{ width: "100%", height: 180, borderRadius: 8 }} 
-            />
-            <Text className="mt-3 font-bold text-lg">Flat White</Text>
-            <Text className="text-[#A2A2A2] text-sm">Espresso</Text>
-
-            <TouchableOpacity className='flex-row items-center justify-between'>
-            <Text className="font-soraBold text-lg ">$3.53</Text>
-            <MaterialIcons name="add-box" size={26} color="#C67C4E" />
-            </TouchableOpacity>
-            <Text className='absolute top-4 right-5 text-white'>⭐ 4.8</Text>
-        </View>
-
-        <View 
-            style={{
-                backgroundColor: "white", 
-                borderRadius: 8, 
-                padding: 12, 
-                //   alignItems: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 3 },
-                shadowOpacity: 0.2,
-                shadowRadius: 4,
-                elevation: 5, 
-                width: 200,
-            }}>
-            <Image 
-            source={require("../../assets/coffee4.png")} 
-            style={{ width: "100%", height: 180, borderRadius: 8 }} 
-            />
-            <Text className="mt-3 font-bold text-lg">Flat White</Text>
-            <Text className="text-[#A2A2A2] text-sm">Espresso</Text>
-
-            <TouchableOpacity className='flex-row items-center justify-between'>
-            <Text className="font-soraBold text-lg ">$3.53</Text>
-            <MaterialIcons name="add-box" size={26} color="#C67C4E" />
-            </TouchableOpacity>
-            <Text className='absolute top-4 right-5 text-white'>⭐ 4.8</Text>
-        </View>
-
+    
+    <View className='flex-row flex-wrap justify-center gap-5'>
+    {coffeeList.map((coffee, index) => (
+        <TouchableOpacity 
+            key={index} 
+            style={{ backgroundColor: "white", borderRadius: 12, padding: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 5, width: 168 }}
+            onPress={() => navigation.navigate('Details', coffee)}
+        >
+            <Image source={coffee.image} style={{ width: "100%", height: 180, borderRadius: 8 }} />
+            <Text style={{ marginTop: 8, fontWeight: "bold", fontSize: 16 }}>{coffee.name}</Text>
+            <Text style={{ color: "#A2A2A2", fontSize: 14 }}>{coffee.title}</Text>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 8 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>${coffee.price}</Text>
+                <MaterialIcons name="add-box" size={26} color="#C67C4E" />
+            </View>
+            <Text style={{ position: "absolute", top: 12, right: 9, color: "white", paddingHorizontal: 6,  }}>⭐ {coffee.rating}</Text>
+        </TouchableOpacity>
+    ))}
     </View>
-            </ScrollView>
-        </View>
+    </ScrollView>
+</View>
     
   )
 }
 
+const Tab = createBottomTabNavigator();
+
+export function HomeScreen() {
+    return (
+        <Tab.Navigator
+        screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+                let iconName: any;
+
+                if (route.name === 'Home') {
+                    iconName = 'home';
+                } else if (route.name === 'Favorite') {
+                    iconName = 'heart';
+                } else if (route.name === 'Bag') {
+                    iconName = 'bag-handle';
+                } else if (route.name === 'Updates') {
+                    iconName = 'notifications';
+                }
+
+                return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#C67C4E',
+            tabBarInactiveTintColor: 'gray',
+            headerShown: false,
+        })}
+    >
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Favorite" component={Favorite} />
+            <Tab.Screen name="Bag" component={Bag}  />
+            <Tab.Screen name="Updates" component={Updates}  />
+
+            {/* <Tab.Screen name="notifications" component={Cart} /> */}
+        
+        </Tab.Navigator>
+    );
+}
