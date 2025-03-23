@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image, ScrollView, Platform } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/Stack";
 import { faAngleDown, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import Toggle from "../Components/Toggle";
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type OrderProps = NativeStackScreenProps<RootStackParamList, "Order">;
@@ -29,8 +30,8 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
   const decreaseCount = () => setCount(count > 1 ? count - 1 : 1);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F9F9F9] p-5">
-      <View className="mt-14 flex-row items-center gap-36 mb-7">
+    <SafeAreaView className="flex-1 bg-[#F9F9F9]" style={{paddingHorizontal: Platform.OS === "ios" ? 28 : 20,}}>
+      <View className="mt-10 flex-row items-center gap-36 mb-7">
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <FontAwesomeIcon icon={faAngleLeft} size={20} />
         </TouchableOpacity>
@@ -52,15 +53,15 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
           <Text className="text-gray-500">Jl. Kpg Sutoyo, Bilzen, Tanjungbalai</Text>
 
           <View className="flex-row mt-4 gap-3">
-            <View className="flex-row items-center gap-2 border rounded-full px-5 bg-white">
+            <TouchableOpacity style={{paddingHorizontal:Platform.OS === "ios" ? 18 : 12, paddingVertical: Platform.OS === "ios" ? 5 : 3,}} className="flex-row items-center gap-2 border rounded-full bg-white">
                 <Feather name="edit" size={14} color="black" />
                 <Text className="font-sora">Edit Address</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View className="flex-row items-center gap-2 border rounded-full px-5 bg-white">
+            <TouchableOpacity className="flex-row items-center gap-2 border rounded-full px-5 bg-white">
                 <Feather name="edit" size={14} color="black" />
                 <Text>Add Note</Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       )}

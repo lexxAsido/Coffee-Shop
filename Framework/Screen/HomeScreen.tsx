@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -12,6 +12,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Favorite from './Favorite';
 import Bag from './Bag';
 import Updates from './Updates';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface HomeProps {
     navigation: {
@@ -37,6 +38,7 @@ function Home({ navigation }: HomeProps) {
       
     
       <View style={{flex:1}}>
+            
 
             <LinearGradient
                 start={{ x: 0, y: 1.5 }} end={{ x: 1.5, y: 0 }}
@@ -44,11 +46,9 @@ function Home({ navigation }: HomeProps) {
                     // flex: 1,
                     padding: 20,
                     justifyContent: "space-between",
-                    height:"30%",
-                    
-                }}
-                >
-                    <View className= "mt-7 mx-10">
+                    height:Platform.OS === "ios" ? "48%" : "38%",
+                }}>
+                    <View className= "mt-10 mx-10">
                         <Text style={{color:"#A2A2A2"}}>Location</Text>
                         <View style={{flexDirection:"row", alignItems:"center",gap: 10, marginTop:5}}>
                         <Text className='text-[#D8D8D8] text-sm'>Bilzen, Tanjungbalai</Text>
@@ -57,16 +57,42 @@ function Home({ navigation }: HomeProps) {
 
                         <View style={{flexDirection:"row", alignItems:"center",gap: 14, marginTop:5}}>
 
-                            <View style={{flexDirection:"row", alignItems:"center",gap: 10, marginTop:5, backgroundColor:"#313131", borderRadius:14,paddingHorizontal:14, width:"90%"}}>
-                            <FontAwesomeIcon icon={faSearch} size={12} style={{color:"#A2A2A2"}}/>
-                            <TextInput
-                                style={{}}
-                                placeholder="Search coffee"
-                                placeholderTextColor="#A2A2A2"
-                                value={searchQuery}
-                                onChangeText={setSearchQuery}
-                            />
-                            </View>
+                        <View
+      style={{
+          flexDirection: "row",
+        alignItems: "center",
+        gap: 14,
+        marginTop: 5,
+        marginBottom:10
+    }}
+    >
+      <View
+        style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+            marginTop: 5,
+            backgroundColor: "#313131",
+            borderRadius: 14,
+            paddingHorizontal: 14,
+            width: "90%",
+            paddingVertical: Platform.OS === "ios" ? 10 : 12, 
+            
+        }}
+        >
+        <FontAwesomeIcon icon={faSearch} size={12} style={{ color: "#A2A2A2" }} />
+        <TextInput
+          style={{
+              flex: 1,
+              paddingVertical: Platform.OS === "ios" ? 8 : 0, 
+            }}
+            placeholder="Search coffee"
+            placeholderTextColor="#A2A2A2"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            />
+      </View>
+    </View>
                             
                             <TouchableOpacity className='bg-[#C67C4E] p-2 rounded-md'>
                             <Ionicons name="options-outline" size={24} color="white" />
@@ -77,14 +103,14 @@ function Home({ navigation }: HomeProps) {
                     </View>
                         
 
-<ImageBackground source={require("../../assets/banner.png")} style={{width:"100%", height:170, marginTop:16}}>
+<ImageBackground source={require("../../assets/banner.png")} style={{width:"100%", height:170, marginTop:16, marginBottom:48,  zIndex: 2,}}>
     <View className='mt-12'>
         <Animatable.View 
             animation="pulse"
             duration={2000} 
             iterationCount="infinite"
             // className='absolute top-4 left-7'
-        >
+            >
             <Text className='bg-[#ED5151] font-soraBold text-white  ml-11' style={{width:60, paddingHorizontal:5}}>Promo</Text>
         </Animatable.View>
 
@@ -99,7 +125,7 @@ function Home({ navigation }: HomeProps) {
                     textShadowRadius: 4,
                     elevation: 20,
                 }}
-            >
+                >
                 Buy one get
             </Text>
 
@@ -113,17 +139,18 @@ function Home({ navigation }: HomeProps) {
                     textShadowRadius: 4,
                     elevation: 10,
                 }}
-            >
+                >
                 one FREE
             </Text>
         </View>
     </View>
 </ImageBackground>
 
-        </LinearGradient>
+</LinearGradient>
+            
 
 
-            <View className=' mt-40 flex gap-10 justify-around items-center' style={{flexDirection:"row",}}>
+            <View className=' flex gap-10 justify-around items-center' style={{flexDirection:"row", marginBottom:Platform.OS === "ios" ? 10 : 18, marginTop:Platform.OS === "ios" ? 10 : "20%",}}>
                 <TouchableOpacity className='bg-[#C67C4E] py-1 px-2 rounded-lg'>
                 <Text className='text-white font-sora '>All Coffee</Text>
                 </TouchableOpacity>
