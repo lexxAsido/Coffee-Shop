@@ -7,8 +7,8 @@ import MapView, { Polyline, Marker } from "react-native-maps";
 const Pickup = ({ navigation }) => {
   return (
     <SafeAreaView className="flex-1 bg-white">
-      {/* Header */}
-      <View className="flex-row justify-between items-center p-4">
+   
+      <View className="flex-row justify-between items-center p-4 mt-14">
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <FontAwesomeIcon icon={faAngleLeft} size={24} />
         </TouchableOpacity>
@@ -17,7 +17,7 @@ const Pickup = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Map View */}
+     
       <View className="flex-1">
         <MapView
           style={{ flex: 1 }}
