@@ -9,7 +9,7 @@ import { RootStackParamList } from "../Navigation/Stack";
 type DetailsProps = NativeStackScreenProps<RootStackParamList, "Details">;
 
 const Details: React.FC<DetailsProps> = ({ route, navigation }) => {
-  const { name, image, description, label, title, rating, price } = route.params;
+  const { name, image, description, label, title, rating, price, } = route.params;
   const [selectedSize, setSelectedSize] = useState("M");
 
   const sizes = ["S", "M", "L"];
@@ -37,16 +37,14 @@ const Details: React.FC<DetailsProps> = ({ route, navigation }) => {
             {name}
           </Text>
 
-         
-
-        <View className='flex-row justify-between '>
-            <Text style={{ color: '#A2A2A2', marginVertical: 5 }} className='font-sora'>{label}</Text>
-            <View className='flex-row items-center justify-between'>
+          <View className="flex-row justify-between ">
+            <Text style={{ color: '#A2A2A2', marginVertical: 5 }} className="font-sora">{label}</Text>
+            <View className="flex-row items-center justify-between">
                 <Image source={require("../../assets/motorbike.png")} style={{width:"16%", height:20,}} tintColor={"#C67C4E"}/>
                 <Image source={require("../../assets/beans.png")} style={{width:"15%", height:20}} tintColor={"#C67C4E"}/>
                 <Image source={require("../../assets/package.png")} style={{width:"15%", height:20}} tintColor={"#C67C4E"}/>
             </View>
-            </View>
+          </View>
 
           <Text style={{ fontSize: 16, color: "#C67C4E" }}>⭐ {rating}</Text>
 
@@ -64,9 +62,7 @@ const Details: React.FC<DetailsProps> = ({ route, navigation }) => {
                 <TouchableOpacity
                   key={size}
                   onPress={() => setSelectedSize(size)}
-                  className={`py-2 px-8 rounded-md text-sm ${
-                    selectedSize === size ? "text-white border-[#C67C4E] border" : "bg-white text-black"
-                  }`}
+                  className={`py-2 px-8 rounded-md text-sm ${selectedSize === size ? "text-white border-[#C67C4E] border" : "bg-white text-black"}`}
                 >
                   <Text className="text-sm">{size}</Text>
                 </TouchableOpacity>
@@ -89,6 +85,7 @@ const Details: React.FC<DetailsProps> = ({ route, navigation }) => {
                   image,
                   price,
                   title,
+                  selectedSize,
                 })
               }
             >
@@ -97,6 +94,28 @@ const Details: React.FC<DetailsProps> = ({ route, navigation }) => {
               </Text>
             </TouchableOpacity>
           </View>
+
+          {/* Add to Cart Button */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "black",
+              borderRadius: 8,
+              marginTop: 15,
+              alignItems: "center",
+              paddingVertical: 12,
+            }}
+            onPress={() => navigation.navigate("Favorite", {
+              name,
+              image,
+              price,
+              title,
+              selectedSize,
+            })}
+          >
+            <Text style={{ color: "white", fontSize: 18 }} className="font-soraBold">
+              Add to Favorite
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

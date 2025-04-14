@@ -5,7 +5,6 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleDown, faArrowDown, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Animatable from "react-native-animatable";
-
 import { RootStackParamList } from '../Navigation/Stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -21,15 +20,15 @@ interface HomeProps {
     };
   }
 
-function Home({ navigation }: HomeProps) {
+  function Home({ navigation }: any) {
     const [searchQuery, setSearchQuery] = useState('');
 
     const coffeeList = [
-        { name: "Caffe Mocha", image: require("../../assets/coffeeA.png"), description: "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85ml of fresh milk the fo..",label:"Ice/Hot", title:"Deep Foam", price: "4.53", rating: "4.8" },
-        { name: "Flat White", image: require("../../assets/coffee2.png"), description: "Espresso is a classy coffee made from the finest",label:"Espresso", title:"Deep Foam", price: "3.53", rating: "4.8" },
-        { name: "Your Maker", image: require("../../assets/coffee3.png"), description: "ultimat",label:"Ice/Hot", title:"Deep Foam", price: "3.53", rating: "4.8" },
-        { name: "Relizo", image: require("../../assets/coffee4.png"), description: "Chillz",label:"Ice/Hot", title:"Deep Foam", price: "3.53", rating: "4.8" },
-        { name: "Heaven", image: require("../../assets/coffee5.png"), description: "Purity",label:"Ice/Hot", title:"Deep Foam", price: "6.53", rating: "4.8" },
+        { name: "Caffe Mocha", image: require("../../assets/coffeeA.png"), description: "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85ml of fresh milk the fo..",label:"Ice/Hot", title:"Deep Foam", price: 4.53, rating: 4.8 },
+        { name: "Flat White", image: require("../../assets/coffee2.png"), description: "Espresso is a classy coffee made from the finest",label:"Espresso", title:"Deep Foam", price: 3.53, rating: 4.8 },
+        { name: "Your Maker", image: require("../../assets/coffee3.png"), description: "ultimat",label:"Ice/Hot", title:"Deep Foam", price: 3.53, rating: 4.8},
+        { name: "Relizo", image: require("../../assets/coffee4.png"), description: "Chillz",label:"Ice/Hot", title:"Deep Foam", price: 3.53, rating: 4.8 },
+        { name: "Heaven", image: require("../../assets/coffee5.png"), description: "Purity",label:"Ice/Hot", title:"Deep Foam", price: 6.53, rating: 4.8 },
     ];
 
     
@@ -178,7 +177,15 @@ function Home({ navigation }: HomeProps) {
         <TouchableOpacity 
             key={index} 
             style={{ backgroundColor: "white", borderRadius: 12, padding: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 5, width: 168 }}
-            onPress={() => navigation.navigate('Details', coffee)}
+            onPress={() => navigation.navigate('Details', {
+                name: coffee.name,
+                image: coffee.image,
+                description: coffee.description,
+                label: coffee.label,
+                title: coffee.title,
+                price: coffee.price,
+                rating: coffee.rating
+            })}
         >
             <Image source={coffee.image} style={{ width: "100%", height: 180, borderRadius: 8 }} />
             <Text style={{ marginTop: 8, fontWeight: "bold", fontSize: 16 }}>{coffee.name}</Text>

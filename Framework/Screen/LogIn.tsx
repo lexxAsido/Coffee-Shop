@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from "yup"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import * as Animatable from 'react-native-animatable';
 import { RootStackParamList } from '../Navigation/Stack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -31,12 +31,10 @@ const LogIn: React.FC<LogInScreenProps> = ({ navigation }) => {
         >
           {(prop) => (
             <View style={{ flex: 1, justifyContent: "center" }}>
-              {/* <View style={styles.logoContainer}>
-                <Image 
-                  source={require("../../assets/tiplogo2.png")}
-                  style={styles.logo}
-                />
-              </View> */}
+              <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center", gap:5}}>
+               <Text className='font-bold text-3xl'>LOGIN</Text>
+               <FontAwesomeIcon icon={faSignInAlt} size={28}/>
+              </View>
 
               
               <View>
@@ -90,7 +88,7 @@ const LogIn: React.FC<LogInScreenProps> = ({ navigation }) => {
 
            
               <TouchableOpacity  onPress={() => navigation.navigate('HomeScreen')} style={styles.btn}>
-                <Text style={styles.btnText}>Login</Text>
+                <Text style={styles.btnText}>Log In</Text>
                 <FontAwesomeIcon icon={faArrowRight} size={16} color="white" />
               </TouchableOpacity>
 
@@ -98,7 +96,7 @@ const LogIn: React.FC<LogInScreenProps> = ({ navigation }) => {
               <View style={styles.signUpContainer}>
                 <Text style={styles.signUpText}>Don't have an account?</Text>
                 <TouchableOpacity>
-                  <Text style={styles.signUpLink}>Sign Up</Text>
+                  <Text style={styles.signUpLink}>Create an Account</Text>
                 </TouchableOpacity>
               </View>
             </View>

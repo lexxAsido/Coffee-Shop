@@ -25,14 +25,21 @@ export type RootStackParamList = {
     rating: number;
     price: number;
   };
-  Bag: undefined;
-  Favorite: undefined;
+  Bag: { items: { id: number; name: string; image: any; price: number; quantity: number; title: string}[] };
+  Favorite: {
+    name: string;
+    image: any;
+    price: number;
+    selectedSize: string
+    title: string
+  };
   Updates: undefined;
   PickUp: undefined;
   Order: {
     name: string;
     image: any;
     price: number;
+    selectedSize: string
     title: string
   };
 };

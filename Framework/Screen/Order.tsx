@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, ScrollView, Platform } from "react-native";
+import { View, Text, TouchableOpacity, Image, ScrollView, Platform, Modal } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/Stack";
 import { faAngleDown, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,7 @@ import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { TextInput } from "react-native";
 
 
 type OrderProps = NativeStackScreenProps<RootStackParamList, "Order">;
@@ -17,6 +18,10 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
   const { name, image, price, title } = route.params;
   const [deliveryMethod, setDeliveryMethod] = useState("Deliver");
   const [count, setCount] = useState(1);
+   const [showAddressModal, setShowAddressModal] = useState(false);
+    const [showNoteModal, setShowNoteModal] = useState(false);
+    const [address, setAddress] = useState("JI. Kpg Sutoyo, Bilzen, Tanjungbalai");
+    const [note, setNote] = useState("");
 
   const handleToggle = (value: string) => {
     setDeliveryMethod(value);
@@ -28,6 +33,24 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
 
   const increaseCount = () => setCount(count + 1);
   const decreaseCount = () => setCount(count > 1 ? count - 1 : 1);
+
+  const handleEditAddress = () => {
+    setShowAddressModal(true); 
+  };
+
+  const handleEditNote = () => {
+    setShowNoteModal(true); 
+  };
+
+  const handleSaveAddress = (newAddress: string) => {
+    setAddress(newAddress);
+    setShowAddressModal(false);
+  };
+
+  const handleSaveNote = (newNote: string) => {
+    setNote(newNote);
+    setShowNoteModal(false); 
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-[#F9F9F9]" style={{paddingHorizontal: Platform.OS === "ios" ? 28 : 20,}}>
@@ -47,23 +70,35 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
       
     <ScrollView>
       {deliveryMethod === "Deliver" && (
-        <View className="mt-5">
-          <Text className="text-lg font-soraBold mb-5">Delivery Address</Text>
-          <Text className="text-md font-soraBold mb-2">JI. Kpg Sutoyo</Text>
-          <Text className="text-gray-500">Jl. Kpg Sutoyo, Bilzen, Tanjungbalai</Text>
+         <View className="mt-5">
+         <Text className="text-lg font-soraBold mb-5">Delivery Address</Text>
+         <Text className="text-md font-soraBold mb-2">{address}</Text>
+         <View className="text-gray-500">
+           <Text>{note}</Text>
+           </View>
 
-          <View className="flex-row mt-4 gap-3">
-            <TouchableOpacity style={{paddingHorizontal:Platform.OS === "ios" ? 18 : 12, paddingVertical: Platform.OS === "ios" ? 5 : 3,}} className="flex-row items-center gap-2 border rounded-full bg-white">
-                <Feather name="edit" size={14} color="black" />
-                <Text className="font-sora">Edit Address</Text>
-            </TouchableOpacity>
+         <View className="flex-row mt-4 gap-3">
+           <TouchableOpacity
+             style={{
+               paddingHorizontal: Platform.OS === "ios" ? 18 : 12,
+               paddingVertical: Platform.OS === "ios" ? 5 : 3,
+             }}
+             className="flex-row items-center gap-2 border rounded-full bg-white"
+             onPress={handleEditAddress} 
+           >
+             <Feather name="edit" size={14} color="black" />
+             <Text className="font-sora">Edit Address</Text>
+           </TouchableOpacity>
 
-            <TouchableOpacity className="flex-row items-center gap-2 border rounded-full px-5 bg-white">
-                <Feather name="edit" size={14} color="black" />
-                <Text>Add Note</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+           <TouchableOpacity
+             className="flex-row items-center gap-2 border rounded-full px-5 bg-white"
+             onPress={handleEditNote} 
+           >
+             <Feather name="edit" size={14} color="black" />
+             <Text>Add Note</Text>
+           </TouchableOpacity>
+         </View>
+       </View>
       )}
 
       <View className="flex-row justify-between my-7" style={{ backgroundColor: "white", borderRadius: 12, padding: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 5, }}>
@@ -134,6 +169,59 @@ const Order: React.FC<OrderProps> = ({ route, navigation }) => {
       <TouchableOpacity className="bg-[#C67C4E] p-4 mt-5 rounded-xl">
         <Text className="text-white text-center font-bold">Order</Text>
       </TouchableOpacity>
+
+      <Modal visible={showAddressModal} animationType="slide" transparent={true}>
+              <View className="flex-1 justify-center items-center bg-black/70 bg-opacity-50">
+                <View className="bg-white p-6 rounded-lg w-80">
+                  <Text className="text-lg font-bold mb-4">Edit Address</Text>
+                  <TextInput
+                    value={address}
+                    onChangeText={setAddress}
+                    placeholder="Enter new address"
+                    style={{ borderBottomWidth: 1, marginBottom: 20 }}
+                  />
+                  <TouchableOpacity
+                    onPress={() => handleSaveAddress(address)}
+                    className="bg-[#C67C4E] p-4 rounded-lg"
+                  >
+                    <Text className="text-white text-center">Save</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setShowAddressModal(false)}
+                    className="mt-3"
+                  >
+                    <Text className="text-center text-gray-500">Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+      
+            {/* Add Note Modal */}
+            <Modal visible={showNoteModal} animationType="slide" transparent={true}>
+              <View className="flex-1 justify-center items-center bg-black/70 bg-opacity-50">
+                <View className="bg-white p-6 rounded-lg w-80">
+                  <Text className="text-lg font-bold mb-4">Add Note</Text>
+                  <TextInput
+                    value={note}
+                    onChangeText={setNote}
+                    placeholder="Enter note"
+                    style={{ borderBottomWidth: 1, marginBottom: 20 }}
+                  />
+                  <TouchableOpacity
+                    onPress={() => handleSaveNote(note)}
+                    className="bg-[#C67C4E] p-4 rounded-lg"
+                  >
+                    <Text className="text-white text-center">Save</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setShowNoteModal(false)}
+                    className="mt-3"
+                  >
+                    <Text className="text-center text-gray-500">Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
       </ScrollView>
     </SafeAreaView>
   );
