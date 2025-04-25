@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft, faCog } from "@fortawesome/free-solid-svg-icons";
 import MapView, { Polyline, Marker } from "react-native-maps";
 
-const Pickup = ({ navigation }) => {
+
+  const Pickup = ({ navigation, route }: any) => {
   return (
     <SafeAreaView className="flex-1 bg-white">
    

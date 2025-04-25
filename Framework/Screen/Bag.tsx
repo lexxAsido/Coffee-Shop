@@ -62,7 +62,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
   return (
     <SafeAreaView className="flex-1 bg-[#F9F9F9]" style={{paddingHorizontal: Platform.OS === "ios" ? 28 : 20}}>
-      <View className="mt-10 flex-row items-center gap-36 mb-7">
+      <View className="mt-5 flex-row items-center gap-36 mb-7">
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <FontAwesomeIcon icon={faAngleLeft} size={20} />
         </TouchableOpacity>

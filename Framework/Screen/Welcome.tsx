@@ -10,7 +10,7 @@ type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 const Welcome: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
-    <View className='bg-black h-full'>
+    <View style={{flex:1, backgroundColor:"black"}}>
      <Image source={require("../../assets/coffeeShop.png")} style={{width: '100%',height: '60%',resizeMode: "cover"}}/>
 
      <View style={{marginHorizontal:10,}}>

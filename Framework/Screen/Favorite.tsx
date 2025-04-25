@@ -37,9 +37,9 @@ const Favorite = ({ navigation, route }: any) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#C67C4E" }}>
-      <View className="flex-1 p-4 mt-10">
+      <View className="flex-1 p-4 mt-2">
 
-        <View className='flex flex-row items-center mb-8 gap-28'>
+        <View className='flex flex-row items-center mb-8 gap-32'>
               <TouchableOpacity onPress={() => navigation.goBack()}>
                   <FontAwesomeIcon icon={faAngleLeft} size={20} />
                 </TouchableOpacity>
